@@ -12,7 +12,7 @@ class Form extends Component {
       cardAttr3: 0,
       cardImage: '',
       cardRare: 'normal',
-      cardTrunfo: false,
+      // cardTrunfo: false,
       hasTrunfo: false,
     };
   }
@@ -32,7 +32,7 @@ class Form extends Component {
       cardAttr3,
       cardImage,
       cardRare,
-      cardTrunfo,
+      // cardTrunfo,
       hasTrunfo,
       isSaveButtonDisabled,
     } = this.state;
