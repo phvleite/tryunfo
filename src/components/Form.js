@@ -2,10 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 class Form extends Component {
-  onSaveButtonClick = (element) => {
-    element.preventDefault();
-  }
-
   render() {
     const {
       cardName,

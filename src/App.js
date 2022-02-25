@@ -1,5 +1,6 @@
 import React from 'react';
 import Form from './components/Form';
+import Card from './components/Card';
 
 class App extends React.Component {
   constructor() {
@@ -18,11 +19,8 @@ class App extends React.Component {
   }
 
   onInputChange = ({ target }) => {
-    console.log(target);
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    console.log(name);
-    console.log(value);
     this.setState({ [name]: value });
   }
 
@@ -46,42 +44,32 @@ class App extends React.Component {
     return (
       <div>
         <h1>Tryunfo</h1>
-        <Form
-          cardName={ cardName }
-          cardDescription={ cardDescription }
-          cardAttr1={ cardAttr1 }
-          cardAttr2={ cardAttr2 }
-          cardAttr3={ cardAttr3 }
-          cardImage={ cardImage }
-          cardRare={ cardRare }
-          cardTrunfo={ cardTrunfo }
-          onInputChange={ this.onInputChange }
-          isSaveButtonDisabled={ saveButton }
-          onSaveButtonClick={ this.onSaveButtonClick }
-        />
-        <div>
-          {/* {
-            superTryunfo.map((card) => (
-              <span key={ card.cardName }>
-                { card.cardName }
-                <br />
-                { card.cardDescription }
-                <br />
-                { card.cardAttr1 }
-                <br />
-                { card.cardAttr2 }
-                <br />
-                { card.cardAttr3 }
-                <br />
-                { card.cardImage }
-                <br />
-                { card.cardRare }
-                <br />
-                { card.cardTrunfo }
-                <br />
-              </span>
-            ))
-          } */}
+        <div className="box-form">
+          <Form
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+            onInputChange={ this.onInputChange }
+            isSaveButtonDisabled={ saveButton }
+            onSaveButtonClick={ this.onSaveButtonClick }
+          />
+        </div>
+        <div className="box-card-preview">
+          <Card
+            cardName={ cardName }
+            cardDescription={ cardDescription }
+            cardAttr1={ cardAttr1 }
+            cardAttr2={ cardAttr2 }
+            cardAttr3={ cardAttr3 }
+            cardImage={ cardImage }
+            cardRare={ cardRare }
+            cardTrunfo={ cardTrunfo }
+          />
         </div>
       </div>
     );
