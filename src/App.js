@@ -133,6 +133,7 @@ class App extends React.Component {
         <h1>Tryunfo</h1>
         <div className="box-form">
           <Form
+            key={ key }
             cardName={ cardName }
             cardDescription={ cardDescription }
             cardAttr1={ cardAttr1 }
