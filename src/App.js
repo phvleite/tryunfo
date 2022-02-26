@@ -2,6 +2,8 @@ import React from 'react';
 import Form from './components/Form';
 import Card from './components/Card';
 
+const cardSuperTryunfo = [];
+
 class App extends React.Component {
   constructor() {
     super();
@@ -28,17 +30,20 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
-    // const {
-    //   cardName,
-    //   cardDescription,
-    //   cardAttr1,
-    //   cardAttr2,
-    //   cardAttr3,
-    //   cardImage,
-    //   cardRare,
-    // } = this.state;
     const card = this.state;
-    console.log(card);
+    cardSuperTryunfo.push(card);
+    this.setState({
+      cardName: '',
+      cardDescription: '',
+      cardAttr1: 0,
+      cardAttr2: 0,
+      cardAttr3: 0,
+      cardImage: '',
+      cardRare: 'normal',
+      cardTrunfo: false,
+      saveButton: true,
+    });
+    console.log(cardSuperTryunfo);
   }
 
   validate = () => {
