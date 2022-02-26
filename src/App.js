@@ -1,6 +1,8 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Form from './components/Form';
 import Card from './components/Card';
+import Cards from './components/Cards';
 
 const cardSuperTryunfo = [];
 
@@ -8,6 +10,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      key: uuidv4(),
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -38,6 +41,7 @@ class App extends React.Component {
     const card = this.state;
     cardSuperTryunfo.push(card);
     this.setState({
+      key: uuidv4(),
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -97,6 +101,7 @@ class App extends React.Component {
 
   render() {
     const {
+      key,
       cardName,
       cardDescription,
       cardAttr1,
@@ -108,6 +113,21 @@ class App extends React.Component {
       hasTrunfo,
       saveButton,
     } = this.state;
+
+    const cardsTryunfo = cardSuperTryunfo.map((card) => (
+      <Cards
+        cardName={ card.cardName }
+        cardDescription={ card.cardDescription }
+        cardAttr1={ card.cardAttr1 }
+        cardAttr2={ card.cardAttr2 }
+        cardAttr3={ card.cardAttr3 }
+        cardImage={ card.cardImage }
+        cardRare={ card.cardRare }
+        cardTrunfo={ card.cardTrunfo }
+        key={ card.key }
+        id={ card.key }
+      />));
+
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -139,6 +159,8 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </div>
+        { cardsTryunfo }
+        <div />
       </div>
     );
   }
