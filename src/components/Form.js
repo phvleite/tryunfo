@@ -17,6 +17,10 @@ class Form extends Component {
       onSaveButtonClick,
     } = this.props;
 
+    const MAX_POINT = 210;
+    const remainingPoints = MAX_POINT - parseInt(cardAttr1, 10)
+      - parseInt(cardAttr2, 10) - parseInt(cardAttr3, 10);
+
     return (
       <div className="box-new-card">
         <h1>
@@ -79,6 +83,10 @@ class Form extends Component {
                 onChange={ onInputChange }
               />
             </label>
+            <div>
+              Pontos Restantes =&nbsp;
+              { remainingPoints }
+            </div>
           </div>
           <label htmlFor="cardImage">
             Imagem
