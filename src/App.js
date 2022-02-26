@@ -1,5 +1,4 @@
 import React from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import Form from './components/Form';
 import Card from './components/Card';
 import Cards from './components/Cards';
@@ -10,7 +9,7 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: uuidv4(),
+      key: '',
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -41,7 +40,7 @@ class App extends React.Component {
     const card = this.state;
     cardSuperTryunfo.push(card);
     this.setState({
-      key: uuidv4(),
+      key: '',
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -52,7 +51,6 @@ class App extends React.Component {
       cardTrunfo: false,
       saveButton: true,
     });
-    console.log(cardSuperTryunfo);
   }
 
   validate = () => {
@@ -124,8 +122,8 @@ class App extends React.Component {
         cardImage={ card.cardImage }
         cardRare={ card.cardRare }
         cardTrunfo={ card.cardTrunfo }
-        key={ card.key }
-        id={ card.key }
+        key={ card.cardName }
+        id={ card.cardName }
       />));
 
     return (
