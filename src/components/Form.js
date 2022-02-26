@@ -12,10 +12,31 @@ class Form extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      hasTrunfo,
       onInputChange,
       isSaveButtonDisabled,
       onSaveButtonClick,
     } = this.props;
+
+    const isHasTrunfo = (
+      <span data-testid="hastrunfo-card">
+        Você já tem um Super Trunfo em seu baralho
+      </span>
+    );
+
+    const notHasTrunfo = (
+      <label htmlFor="cardTrunfo">
+        <input
+          type="checkbox"
+          data-testid="trunfo-input"
+          name="cardTrunfo"
+          id="cardTrunfo"
+          checked={ cardTrunfo }
+          onChange={ onInputChange }
+        />
+        Super Trybe Trunfo
+      </label>
+    );
 
     const MAX_POINT = 210;
     const remainingPoints = MAX_POINT - parseInt(cardAttr1, 10)
@@ -113,17 +134,7 @@ class Form extends Component {
               <option value="muito raro">muito raro</option>
             </select>
           </label>
-          <label htmlFor="cardTrunfo">
-            <input
-              type="checkbox"
-              data-testid="trunfo-input"
-              name="cardTrunfo"
-              id="cardTrunfo"
-              checked={ cardTrunfo }
-              onChange={ onInputChange }
-            />
-            Super Trybe Trunfo
-          </label>
+          { hasTrunfo ? isHasTrunfo : notHasTrunfo }
           <input
             type="submit"
             data-testid="save-button"
@@ -149,6 +160,7 @@ Form.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
 };
 
