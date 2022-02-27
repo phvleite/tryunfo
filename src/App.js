@@ -1,4 +1,5 @@
 import React from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import Form from './components/Form';
 import Card from './components/Card';
 import Cards from './components/Cards';
@@ -9,7 +10,6 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      key: '',
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -20,6 +20,7 @@ class App extends React.Component {
       cardTrunfo: false,
       hasTrunfo: false,
       saveButton: true,
+      cardsTryunfo: cardSuperTryunfo,
     };
   }
 
@@ -31,16 +32,52 @@ class App extends React.Component {
     }, () => this.validate());
   }
 
+  onRemoveCard = (myUUID) => {
+    const { cardsTryunfo } = this.state;
+    cardsTryunfo.forEach((card) => {
+      if (card.myUUID === myUUID && card.cardTrunfo) {
+        this.setState({ hasTrunfo: false });
+      }
+    });
+    this.setState({
+      cardsTryunfo: cardsTryunfo.filter((card) => card.myUUID !== myUUID),
+    });
+  }
+
   onSaveButtonClick = (event) => {
     event.preventDefault();
-    const { cardTrunfo } = this.state;
+    const {
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    } = this.state;
+
     if (cardTrunfo) {
       this.setState({ hasTrunfo: true });
     }
-    const card = this.state;
-    cardSuperTryunfo.push(card);
+    const myUUID = uuidv4();
+    const card = {
+      myUUID,
+      cardName,
+      cardDescription,
+      cardAttr1,
+      cardAttr2,
+      cardAttr3,
+      cardImage,
+      cardRare,
+      cardTrunfo,
+    };
+
+    this.setState((prevState) => ({
+      cardsTryunfo: [...prevState.cardsTryunfo, card],
+    }));
+
     this.setState({
-      key: '',
       cardName: '',
       cardDescription: '',
       cardAttr1: 0,
@@ -99,7 +136,6 @@ class App extends React.Component {
 
   render() {
     const {
-      key,
       cardName,
       cardDescription,
       cardAttr1,
@@ -112,26 +148,30 @@ class App extends React.Component {
       saveButton,
     } = this.state;
 
-    const cardsTryunfo = cardSuperTryunfo.map((card) => (
-      <Cards
-        cardName={ card.cardName }
-        cardDescription={ card.cardDescription }
-        cardAttr1={ card.cardAttr1 }
-        cardAttr2={ card.cardAttr2 }
-        cardAttr3={ card.cardAttr3 }
-        cardImage={ card.cardImage }
-        cardRare={ card.cardRare }
-        cardTrunfo={ card.cardTrunfo }
-        key={ card.cardName }
-        id={ card.cardName }
-      />));
+    const { cardsTryunfo } = this.state;
+
+    const cardsSuperTryunfo = cardsTryunfo.map((card) => (
+      <div key={ card.myUUID }>
+        <Cards
+          cardName={ card.cardName }
+          cardDescription={ card.cardDescription }
+          cardAttr1={ card.cardAttr1 }
+          cardAttr2={ card.cardAttr2 }
+          cardAttr3={ card.cardAttr3 }
+          cardImage={ card.cardImage }
+          cardRare={ card.cardRare }
+          cardTrunfo={ card.cardTrunfo }
+          myUUID={ card.myUUID }
+          onRemoveCard={ this.onRemoveCard }
+        />
+      </div>
+    ));
 
     return (
       <div>
         <h1>Tryunfo</h1>
         <div className="box-form">
           <Form
-            key={ key }
             cardName={ cardName }
             cardDescription={ cardDescription }
             cardAttr1={ cardAttr1 }
@@ -158,8 +198,9 @@ class App extends React.Component {
             cardTrunfo={ cardTrunfo }
           />
         </div>
-        { cardsTryunfo }
-        <div />
+        <div className="list-cards">
+          { cardsSuperTryunfo }
+        </div>
       </div>
     );
   }

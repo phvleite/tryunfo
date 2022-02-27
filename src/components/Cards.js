@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+// id={ myUUID }
 class Cards extends Component {
   render() {
     const {
@@ -12,18 +13,19 @@ class Cards extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
-      key,
-      id,
+      myUUID,
+      onRemoveCard,
     } = this.props;
 
     const isSuperTrunfo = (
-      <span data-testid="trunfo-card">
+      <span data-testid="trunfo-card" id={ myUUID }>
         Super Trunfo
+        <br />
       </span>
     );
 
     return (
-      <div key={ key } id={ id }>
+      <div>
         <br />
         <span data-testid="name-card">
           Nome:&nbsp;
@@ -60,6 +62,13 @@ class Cards extends Component {
         </span>
         <br />
         { cardTrunfo ? isSuperTrunfo : '' }
+        <button
+          type="submit"
+          data-testid="delete-button"
+          onClick={ () => onRemoveCard(myUUID) }
+        >
+          Exlcuir
+        </button>
       </div>
     );
   }
@@ -73,9 +82,9 @@ Cards.propTypes = {
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
+  myUUID: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
-  key: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
+  onRemoveCard: PropTypes.func.isRequired,
 };
 
 export default Cards;
