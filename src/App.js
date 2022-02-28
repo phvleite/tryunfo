@@ -65,6 +65,7 @@ class App extends React.Component {
     if (cardTrunfo) {
       this.setState({ hasTrunfo: true });
     }
+
     const myUUID = uuidv4();
     const card = {
       myUUID,
