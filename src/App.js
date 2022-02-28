@@ -37,10 +37,16 @@ class App extends React.Component {
     const { cardsTryunfo } = this.state;
     const filterCards = cardsTryunfo.filter((card) => card.myUUID !== myUUID);
 
-    this.setState(() => ({
+    this.setState({
       cardsTryunfo: filterCards,
-      hasTrunfo: filterCards.some((card) => card.cardTrunfo),
-    }));
+    }, this.findTrufoPresence);
+  }
+
+  // solução encontrada no git do Tomas Breuckmann: (https://github.com/tryber/sd-019-a-project-tryunfo/blob/tomas-breuckmann-project-tryunfo/src/App.js)
+  // mas requisito 9 continua reprovado.
+  findTrufoPresence = () => {
+    const { cardsTryunfo } = this.state;
+    this.setState({ hasTrunfo: cardsTryunfo.some((card) => card.hasTrunfo === true) });
   }
 
   onSaveButtonClick = (event) => {
@@ -135,7 +141,7 @@ class App extends React.Component {
 
   // Solução encontrada no git do Ramond Falcão:(https://github.com/tryber/sd-019-a-project-tryunfo/blob/ramond-falcao-tryunfo/src/App.js)
   // que havia encontrado essa solução no git do Gabriel Melo:(https://github.com/tryber/sd-019-a-project-tryunfo/blob/dev/gabriel-melo/src/App.js)
-  // mas infelizmente ainda foi reprevado.
+  // mas infelizmente ainda foi reprovado.
   renderCardsTryunfo = () => {
     const { cardsTryunfo } = this.state;
     return cardsTryunfo.map((card) => (
