@@ -32,16 +32,15 @@ class App extends React.Component {
     }, () => this.validate());
   }
 
-  onRemoveCard = (myUUID) => {
+  onRemoveCard = (e) => {
+    const myUUID = e.target.id;
     const { cardsTryunfo } = this.state;
-    cardsTryunfo.forEach((card) => {
-      if (card.myUUID === myUUID && card.cardTrunfo) {
-        this.setState({ hasTrunfo: false });
-      }
-    });
-    this.setState({
-      cardsTryunfo: cardsTryunfo.filter((card) => card.myUUID !== myUUID),
-    });
+    const filterCards = cardsTryunfo.filter((card) => card.myUUID !== myUUID);
+
+    this.setState(() => ({
+      cardsTryunfo: filterCards,
+      hasTrunfo: filterCards.some((card) => card.cardTrunfo),
+    }));
   }
 
   onSaveButtonClick = (event) => {
@@ -134,6 +133,30 @@ class App extends React.Component {
     }
   }
 
+  // Solução encontrada no git do Ramond Falcão:(https://github.com/tryber/sd-019-a-project-tryunfo/blob/ramond-falcao-tryunfo/src/App.js)
+  // que havia encontrado essa solução no git do Gabriel Melo:(https://github.com/tryber/sd-019-a-project-tryunfo/blob/dev/gabriel-melo/src/App.js)
+  // mas infelizmente ainda foi reprevado.
+  renderCardsTryunfo = () => {
+    const { cardsTryunfo } = this.state;
+    return cardsTryunfo.map((card) => (
+      <div key={ card.myUUID }>
+        <Card
+          cardName={ card.cardName }
+          cardDescription={ card.cardDescription }
+          cardAttr1={ card.cardAttr1 }
+          cardAttr2={ card.cardAttr2 }
+          cardAttr3={ card.cardAttr3 }
+          cardImage={ card.cardImage }
+          cardRare={ card.cardRare }
+          cardTrunfo={ card.cardTrunfo }
+          myUUID={ card.myUUID }
+          notPreview
+          onRemoveCard={ this.onRemoveCard }
+        />
+      </div>
+    ));
+  }
+
   render() {
     const {
       cardName,
@@ -146,26 +169,8 @@ class App extends React.Component {
       cardTrunfo,
       hasTrunfo,
       saveButton,
+      cardsTryunfo,
     } = this.state;
-
-    const { cardsTryunfo } = this.state;
-
-    const cardsSuperTryunfo = cardsTryunfo.map((card) => (
-      <div key={ card.myUUID }>
-        <Cards
-          cardName={ card.cardName }
-          cardDescription={ card.cardDescription }
-          cardAttr1={ card.cardAttr1 }
-          cardAttr2={ card.cardAttr2 }
-          cardAttr3={ card.cardAttr3 }
-          cardImage={ card.cardImage }
-          cardRare={ card.cardRare }
-          cardTrunfo={ card.cardTrunfo }
-          myUUID={ card.myUUID }
-          onRemoveCard={ this.onRemoveCard }
-        />
-      </div>
-    ));
 
     return (
       <div>
@@ -196,10 +201,14 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
+            notPreview={ false }
           />
         </div>
-        <div className="list-cards">
-          { cardsSuperTryunfo }
+        <div>
+          <Cards
+            renderCardsTryunfo={ this.renderCardsTryunfo }
+            cardsTryunfo={ cardsTryunfo }
+          />
         </div>
       </div>
     );

@@ -12,6 +12,9 @@ class Card extends Component {
       cardImage,
       cardRare,
       cardTrunfo,
+      notPreview,
+      myUUID,
+      onRemoveCard,
     } = this.props;
 
     const isSuperTrunfo = (
@@ -58,10 +61,30 @@ class Card extends Component {
         </span>
         <br />
         { cardTrunfo ? isSuperTrunfo : '' }
+        <div>
+          { notPreview && (
+            <button
+              type="submit"
+              data-testid="delete-button"
+              value={ cardName }
+              id={ myUUID }
+              onClick={ onRemoveCard }
+              // onClick={ () => onRemoveCard(myUUID) }
+            >
+              Exlcuir
+            </button>
+          )}
+        </div>
       </div>
     );
   }
 }
+
+Card.defaultProps = {
+  notPreview: false,
+  onRemoveCard: (() => {}),
+  myUUID: '',
+};
 
 Card.propTypes = {
   cardName: PropTypes.string.isRequired,
@@ -72,6 +95,9 @@ Card.propTypes = {
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
+  notPreview: PropTypes.bool,
+  onRemoveCard: PropTypes.func,
+  myUUID: PropTypes.string,
 };
 
 export default Card;
