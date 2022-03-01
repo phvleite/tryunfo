@@ -3,6 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import Form from './components/Form';
 import Card from './components/Card';
 import Cards from './components/Cards';
+import Filtercards from './components/Filtercards';
 
 const cardSuperTryunfo = [];
 
@@ -23,6 +24,7 @@ class App extends React.Component {
       cardsTryunfo: cardSuperTryunfo,
       searchCard: '',
       showCard: '',
+      rareFilter: '',
     };
   }
 
@@ -34,8 +36,10 @@ class App extends React.Component {
     this.setState({ searchCard: '', showCard: '' });
   }
 
-  handleSearch = (event) => {
-    this.setState({ searchCard: event.target.value });
+  handleSearch = ({ target }) => {
+    console.log(target);
+    const { name, value } = target;
+    this.setState({ [name]: value });
   }
 
   onInputChange = ({ target }) => {
@@ -159,6 +163,7 @@ class App extends React.Component {
       saveButton,
       cardsTryunfo,
       searchCard,
+      rareFilter,
     } = this.state;
     return (
       <div>
@@ -193,28 +198,13 @@ class App extends React.Component {
           />
         </div>
         <div>
-          <h1>Todas as Cartas</h1>
-          <div>
-            <input
-              type="text"
-              value={ searchCard }
-              onChange={ this.handleSearch }
-              placeholder="Nome da carta"
-              data-testid="name-filter"
-            />
-            <button
-              type="submit"
-              onClick={ () => this.buttonSearchCard(searchCard) }
-            >
-              Buscar
-            </button>
-            <button
-              type="submit"
-              onClick={ () => this.clearSearchCard() }
-            >
-              Apagar
-            </button>
-          </div>
+          <Filtercards
+            searchCard={ searchCard }
+            handleSearch={ this.handleSearch }
+            buttonSearchCard={ this.buttonSearchCard }
+            clearSearchCard={ this.clearSearchCard }
+            rareFilter={ rareFilter }
+          />
           { (cardsTryunfo.length) ? this.cardList() : '' }
         </div>
       </div>
