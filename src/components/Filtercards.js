@@ -9,15 +9,16 @@ class Filtercards extends Component {
       buttonSearchCard,
       clearSearchCard,
       rareFilter,
-      searchFildes,
+      searchFields,
       trunfoFilter,
+      saveAllCards,
     } = this.props;
     return (
       <div>
         <h1>Todas as Cartas</h1>
         <input
           type="text"
-          disabled={ searchFildes }
+          disabled={ searchFields }
           value={ searchCard }
           onChange={ handleSearch }
           name="searchCard"
@@ -31,7 +32,7 @@ class Filtercards extends Component {
               data-testid="rare-filter"
               name="rareFilter"
               value={ rareFilter }
-              disabled={ searchFildes }
+              disabled={ searchFields }
               onChange={ handleSearch }
             >
               <option value="todas">todas</option>
@@ -55,7 +56,7 @@ class Filtercards extends Component {
         <br />
         <button
           type="submit"
-          disabled={ searchFildes }
+          disabled={ searchFields }
           onClick={ () => buttonSearchCard(searchCard, rareFilter) }
         >
           Buscar
@@ -65,6 +66,12 @@ class Filtercards extends Component {
           onClick={ () => clearSearchCard() }
         >
           Limpar
+        </button>
+        <button
+          type="submit"
+          onClick={ () => saveAllCards() }
+        >
+          Salvar Cartas
         </button>
       </div>
     );
@@ -77,7 +84,8 @@ Filtercards.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   buttonSearchCard: PropTypes.func.isRequired,
   clearSearchCard: PropTypes.func.isRequired,
-  searchFildes: PropTypes.bool.isRequired,
+  saveAllCards: PropTypes.func.isRequired,
+  searchFields: PropTypes.bool.isRequired,
   trunfoFilter: PropTypes.bool.isRequired,
 };
 

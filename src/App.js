@@ -5,7 +5,14 @@ import Card from './components/Card';
 import Cards from './components/Cards';
 import Filtercards from './components/Filtercards';
 
-const cardSuperTryunfo = [];
+const getSavedCards = () => {
+  const getCards = window.localStorage.getItem('cardsTryunfo');
+  let savedCards = JSON.parse(getCards);
+  if (savedCards === null) savedCards = [];
+  return savedCards;
+};
+
+const cardSuperTryunfo = getSavedCards();
 
 class App extends React.Component {
   constructor() {
@@ -35,9 +42,7 @@ class App extends React.Component {
     if (rareFilter === 'todas') {
       this.setState({ showCard: searchCard }, () => this.cardList());
     } else {
-      this.setState({
-        showCard: searchCard,
-        showRare: rareFilter,
+      this.setState({ showCard: searchCard, showRare: rareFilter,
       }, () => this.cardList());
     }
   }
@@ -75,16 +80,8 @@ class App extends React.Component {
 
   onSaveButtonClick = (event) => {
     event.preventDefault();
-    const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-    } = this.state;
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage, cardRare, cardTrunfo } = this.state;
     if (cardTrunfo) {
       this.setState({ hasTrunfo: true });
     }
@@ -121,30 +118,29 @@ class App extends React.Component {
     const MAX_VALUE_ATTR = 90;
     const MIN_VALUE_ATTR = 0;
     const MAX_VALUE_POINTS = 210;
-    const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-    } = this.state;
+
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare } = this.state;
+
     const valueAttr1 = parseInt(cardAttr1, 10);
     const valueAttr2 = parseInt(cardAttr2, 10);
     const valueAttr3 = parseInt(cardAttr3, 10);
+
     const minLen = cardName.length >= MIN_LEN_VALUE
       && cardDescription.length >= MIN_LEN_VALUE;
+
     const valueAttr = valueAttr1 <= MAX_VALUE_ATTR
       && valueAttr1 >= MIN_VALUE_ATTR
       && valueAttr2 <= MAX_VALUE_ATTR
       && valueAttr2 >= MIN_VALUE_ATTR
       && valueAttr3 <= MAX_VALUE_ATTR
       && valueAttr3 >= MIN_VALUE_ATTR;
+
     const sumTotalPoints = (valueAttr1 + valueAttr2 + valueAttr3) <= MAX_VALUE_POINTS;
     const fields = [cardName, cardDescription, cardImage, cardRare];
     const emptyFields = fields.every((field) => field !== '');
     const isValid = minLen && valueAttr && emptyFields && sumTotalPoints;
+
     if (isValid) {
       this.setState({ saveButton: false });
     } else {
@@ -153,7 +149,10 @@ class App extends React.Component {
   }
 
   cardList = () => {
-    const { cardsTryunfo, showCard, showRare, trunfoFilter } = this.state;
+    const { cardsTryunfo, showCard, showRare, trunfoFilter, hasTrunfo } = this.state;
+    if (!hasTrunfo) {
+      this.setState({ hasTrunfo: cardsTryunfo.some((card) => card.cardTrunfo) });
+    }
     return (
       <Cards
         cardsTryunfo={ cardsTryunfo }
@@ -161,27 +160,23 @@ class App extends React.Component {
         showCard={ showCard }
         showRare={ showRare }
         trunfoFilter={ trunfoFilter }
+        hasTrunfo={ hasTrunfo }
       />
     );
   };
 
+  saveAllCards = () => {
+    const { cardsTryunfo } = this.state;
+    window.localStorage.setItem('cardsTryunfo', JSON.stringify(cardsTryunfo));
+    customAlert('Cartas salvas!');
+    const alert = myCustomLib.customAlert;
+    alert();
+  }
+
   render() {
-    const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      hasTrunfo,
-      saveButton,
-      cardsTryunfo,
-      searchCard,
-      rareFilter,
-      trunfoFilter,
-      searchFields,
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
+      cardImage, cardRare, cardTrunfo, hasTrunfo, saveButton, cardsTryunfo,
+      searchCard, rareFilter, trunfoFilter, searchFields,
     } = this.state;
     return (
       <div>
@@ -223,6 +218,7 @@ class App extends React.Component {
             rareFilter={ rareFilter }
             trunfoFilter={ trunfoFilter }
             searchFields={ searchFields }
+            saveAllCards={ this.saveAllCards }
           />
           { (cardsTryunfo.length) ? this.cardList() : '' }
         </div>

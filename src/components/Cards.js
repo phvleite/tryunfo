@@ -27,6 +27,9 @@ class Cards extends Component {
           .filter((card) => card.cardRare === showRare)
           .filter((card) => card.cardName.includes(showCard));
       }
+    } else {
+      cardsTryunfoFiltered = cardsTryunfo
+        .filter((card) => card.cardTrunfo === true);
     }
 
     const cardsTryunfoList = cardsTryunfoFiltered
