@@ -22,11 +22,20 @@ class App extends React.Component {
       saveButton: true,
       cardsTryunfo: cardSuperTryunfo,
       searchCard: '',
+      showCard: '',
     };
   }
 
+  buttonSearchCard = (searchCard) => {
+    this.setState({ showCard: searchCard }, () => this.cardList());
+  }
+
+  clearSearchCard = () => {
+    this.setState({ searchCard: '', showCard: '' });
+  }
+
   handleSearch = (event) => {
-    console.log(event.target.value);
+    this.setState({ searchCard: event.target.value });
   }
 
   onInputChange = ({ target }) => {
@@ -42,7 +51,7 @@ class App extends React.Component {
     const filterCards = cardsTryunfo.filter((card) => card.myUUID !== myUUID);
     this.setState({
       cardsTryunfo: filterCards,
-      hasTrunfo: cardsTryunfo.some((card) => card.hasTrunfo === true),
+      hasTrunfo: filterCards.some((card) => card.cardTrunfo),
     });
   }
 
@@ -126,18 +135,14 @@ class App extends React.Component {
   }
 
   cardList = () => {
-    const { cardsTryunfo, searchCard } = this.state;
+    const { cardsTryunfo, showCard } = this.state;
     return (
-      <div>
-        <div>
-          <h1>Cards</h1>
-        </div>
-        <Cards
-          cardsTryunfo={ cardsTryunfo }
-          onRemoveCard={ this.onRemoveCard }
-          searchCard={ searchCard }
-        />
-      </div>);
+      <Cards
+        cardsTryunfo={ cardsTryunfo }
+        onRemoveCard={ this.onRemoveCard }
+        showCard={ showCard }
+      />
+    );
   };
 
   render() {
@@ -153,6 +158,7 @@ class App extends React.Component {
       hasTrunfo,
       saveButton,
       cardsTryunfo,
+      searchCard,
     } = this.state;
     return (
       <div>
@@ -187,6 +193,28 @@ class App extends React.Component {
           />
         </div>
         <div>
+          <h1>Todas as Cartas</h1>
+          <div>
+            <input
+              type="text"
+              value={ searchCard }
+              onChange={ this.handleSearch }
+              placeholder="Nome da carta"
+              data-testid="name-filter"
+            />
+            <button
+              type="submit"
+              onClick={ () => this.buttonSearchCard(searchCard) }
+            >
+              Buscar
+            </button>
+            <button
+              type="submit"
+              onClick={ () => this.clearSearchCard() }
+            >
+              Apagar
+            </button>
+          </div>
           { (cardsTryunfo.length) ? this.cardList() : '' }
         </div>
       </div>

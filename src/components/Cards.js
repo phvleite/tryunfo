@@ -3,7 +3,11 @@ import PropTypes from 'prop-types';
 
 class Cards extends Component {
   render() {
-    const { cardsTryunfo, onRemoveCard, searchCard } = this.props;
+    const {
+      cardsTryunfo,
+      onRemoveCard,
+      showCard,
+    } = this.props;
 
     const isSuperTrunfo = (
       <span data-testid="trunfo-card">
@@ -11,8 +15,8 @@ class Cards extends Component {
       </span>
     );
 
-    return cardsTryunfo
-      .filter((card) => card.cardName.includes(searchCard))
+    const cardsTryunfoList = cardsTryunfo
+      .filter((card) => card.cardName.includes(showCard))
       .map((card) => (
         <div key={ card.myUUID }>
           <br />
@@ -66,13 +70,19 @@ class Cards extends Component {
           <br />
         </div>
       ));
+
+    return (
+      <div>
+        { cardsTryunfoList }
+      </div>
+    );
   }
 }
 
 Cards.propTypes = {
   cardsTryunfo: PropTypes.arrayOf(PropTypes.object).isRequired,
   onRemoveCard: PropTypes.func.isRequired,
-  searchCard: PropTypes.string.isRequired,
+  showCard: PropTypes.string.isRequired,
 };
 
 export default Cards;
