@@ -9,12 +9,15 @@ class Filtercards extends Component {
       buttonSearchCard,
       clearSearchCard,
       rareFilter,
+      searchFildes,
+      trunfoFilter,
     } = this.props;
     return (
       <div>
         <h1>Todas as Cartas</h1>
         <input
           type="text"
+          disabled={ searchFildes }
           value={ searchCard }
           onChange={ handleSearch }
           name="searchCard"
@@ -28,6 +31,7 @@ class Filtercards extends Component {
               data-testid="rare-filter"
               name="rareFilter"
               value={ rareFilter }
+              disabled={ searchFildes }
               onChange={ handleSearch }
             >
               <option value="todas">todas</option>
@@ -37,8 +41,21 @@ class Filtercards extends Component {
             </select>
           </label>
         </div>
+        <label htmlFor="trunfoFilter">
+          <input
+            type="checkbox"
+            data-testid="trunfo-filter"
+            name="trunfoFilter"
+            id="trunfoFilter"
+            checked={ trunfoFilter }
+            onChange={ handleSearch }
+          />
+          Super Tryunfo Card
+        </label>
+        <br />
         <button
           type="submit"
+          disabled={ searchFildes }
           onClick={ () => buttonSearchCard(searchCard, rareFilter) }
         >
           Buscar
@@ -60,6 +77,8 @@ Filtercards.propTypes = {
   handleSearch: PropTypes.func.isRequired,
   buttonSearchCard: PropTypes.func.isRequired,
   clearSearchCard: PropTypes.func.isRequired,
+  searchFildes: PropTypes.bool.isRequired,
+  trunfoFilter: PropTypes.bool.isRequired,
 };
 
 export default Filtercards;

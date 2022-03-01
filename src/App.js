@@ -44,19 +44,24 @@ class App extends React.Component {
 
   clearSearchCard = () => {
     this.setState({ searchCard: '', showCard: '', rareFilter: 'todas', showRare: '' });
+    this.setState({ trunfoFilter: false, searchFields: false });
   }
 
   handleSearch = ({ target }) => {
-    const { name, value } = target;
+    const { name } = target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value });
+    if (name === 'trunfoFilter' && value) {
+      this.setState({ searchFields: true }, () => this.cardList());
+    } else if (name === 'trunfoFilter' && !value) {
+      this.setState({ searchFields: false }, () => this.cardList());
+    }
   }
 
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({
-      [name]: value,
-    }, () => this.validate());
+    this.setState({ [name]: value }, () => this.validate());
   }
 
   onRemoveCard = (myUUID) => {
@@ -207,7 +212,6 @@ class App extends React.Component {
             cardImage={ cardImage }
             cardRare={ cardRare }
             cardTrunfo={ cardTrunfo }
-            notPreview={ false }
           />
         </div>
         <div>
