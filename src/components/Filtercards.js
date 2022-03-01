@@ -39,7 +39,7 @@ class Filtercards extends Component {
         </div>
         <button
           type="submit"
-          onClick={ () => buttonSearchCard(searchCard) }
+          onClick={ () => buttonSearchCard(searchCard, rareFilter) }
         >
           Buscar
         </button>

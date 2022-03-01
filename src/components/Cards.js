@@ -7,6 +7,7 @@ class Cards extends Component {
       cardsTryunfo,
       onRemoveCard,
       showCard,
+      showRare,
     } = this.props;
 
     const isSuperTrunfo = (
@@ -15,8 +16,17 @@ class Cards extends Component {
       </span>
     );
 
-    const cardsTryunfoList = cardsTryunfo
-      .filter((card) => card.cardName.includes(showCard))
+    let cardsTryunfoFiltered = [];
+    if (showRare === '') {
+      cardsTryunfoFiltered = cardsTryunfo
+        .filter((card) => card.cardName.includes(showCard));
+    } else {
+      cardsTryunfoFiltered = cardsTryunfo
+        .filter((card) => card.cardRare === showRare)
+        .filter((card) => card.cardName.includes(showCard));
+    }
+
+    const cardsTryunfoList = cardsTryunfoFiltered
       .map((card) => (
         <div key={ card.myUUID }>
           <br />
@@ -83,6 +93,7 @@ Cards.propTypes = {
   cardsTryunfo: PropTypes.arrayOf(PropTypes.object).isRequired,
   onRemoveCard: PropTypes.func.isRequired,
   showCard: PropTypes.string.isRequired,
+  showRare: PropTypes.string.isRequired,
 };
 
 export default Cards;

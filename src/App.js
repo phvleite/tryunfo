@@ -13,9 +13,9 @@ class App extends React.Component {
     this.state = {
       cardName: '',
       cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
@@ -24,20 +24,29 @@ class App extends React.Component {
       cardsTryunfo: cardSuperTryunfo,
       searchCard: '',
       showCard: '',
-      rareFilter: '',
+      rareFilter: 'todas',
+      showRare: '',
+      trunfoFilter: false,
+      searchFields: false,
     };
   }
 
-  buttonSearchCard = (searchCard) => {
-    this.setState({ showCard: searchCard }, () => this.cardList());
+  buttonSearchCard = (searchCard, rareFilter) => {
+    if (rareFilter === 'todas') {
+      this.setState({ showCard: searchCard }, () => this.cardList());
+    } else {
+      this.setState({
+        showCard: searchCard,
+        showRare: rareFilter,
+      }, () => this.cardList());
+    }
   }
 
   clearSearchCard = () => {
-    this.setState({ searchCard: '', showCard: '' });
+    this.setState({ searchCard: '', showCard: '', rareFilter: 'todas', showRare: '' });
   }
 
   handleSearch = ({ target }) => {
-    console.log(target);
     const { name, value } = target;
     this.setState({ [name]: value });
   }
@@ -92,9 +101,9 @@ class App extends React.Component {
     this.setState({
       cardName: '',
       cardDescription: '',
-      cardAttr1: 0,
-      cardAttr2: 0,
-      cardAttr3: 0,
+      cardAttr1: '0',
+      cardAttr2: '0',
+      cardAttr3: '0',
       cardImage: '',
       cardRare: 'normal',
       cardTrunfo: false,
@@ -139,12 +148,14 @@ class App extends React.Component {
   }
 
   cardList = () => {
-    const { cardsTryunfo, showCard } = this.state;
+    const { cardsTryunfo, showCard, showRare, trunfoFilter } = this.state;
     return (
       <Cards
         cardsTryunfo={ cardsTryunfo }
         onRemoveCard={ this.onRemoveCard }
         showCard={ showCard }
+        showRare={ showRare }
+        trunfoFilter={ trunfoFilter }
       />
     );
   };
@@ -164,6 +175,8 @@ class App extends React.Component {
       cardsTryunfo,
       searchCard,
       rareFilter,
+      trunfoFilter,
+      searchFields,
     } = this.state;
     return (
       <div>
@@ -204,6 +217,8 @@ class App extends React.Component {
             buttonSearchCard={ this.buttonSearchCard }
             clearSearchCard={ this.clearSearchCard }
             rareFilter={ rareFilter }
+            trunfoFilter={ trunfoFilter }
+            searchFields={ searchFields }
           />
           { (cardsTryunfo.length) ? this.cardList() : '' }
         </div>

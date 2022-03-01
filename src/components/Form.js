@@ -78,7 +78,7 @@ class Form extends Component {
                 data-testid="attr1-input"
                 name="cardAttr1"
                 id="cardAttr1"
-                value={ cardAttr1 }
+                value={ cardAttr1.toString() }
                 onChange={ onInputChange }
               />
             </label>
@@ -89,7 +89,7 @@ class Form extends Component {
                 data-testid="attr2-input"
                 name="cardAttr2"
                 id="cardAttr2"
-                value={ cardAttr2 }
+                value={ cardAttr2.toString() }
                 onChange={ onInputChange }
               />
             </label>
@@ -100,7 +100,7 @@ class Form extends Component {
                 data-testid="attr3-input"
                 name="cardAttr3"
                 id="cardAttr3"
-                value={ cardAttr3 }
+                value={ cardAttr3.toString() }
                 onChange={ onInputChange }
               />
             </label>
@@ -154,9 +154,9 @@ Form.propTypes = {
   onSaveButtonClick: PropTypes.func.isRequired,
   cardName: PropTypes.string.isRequired,
   cardDescription: PropTypes.string.isRequired,
-  cardAttr1: PropTypes.number.isRequired,
-  cardAttr2: PropTypes.number.isRequired,
-  cardAttr3: PropTypes.number.isRequired,
+  cardAttr1: PropTypes.string.isRequired,
+  cardAttr2: PropTypes.string.isRequired,
+  cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
   cardRare: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
