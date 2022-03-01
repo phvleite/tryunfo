@@ -21,7 +21,12 @@ class App extends React.Component {
       hasTrunfo: false,
       saveButton: true,
       cardsTryunfo: cardSuperTryunfo,
+      searchCard: '',
     };
+  }
+
+  handleSearch = (event) => {
+    console.log(event.target.value);
   }
 
   onInputChange = ({ target }) => {
@@ -32,21 +37,13 @@ class App extends React.Component {
     }, () => this.validate());
   }
 
-  onRemoveCard = (e) => {
-    const myUUID = e.target.id;
+  onRemoveCard = (myUUID) => {
     const { cardsTryunfo } = this.state;
     const filterCards = cardsTryunfo.filter((card) => card.myUUID !== myUUID);
-
     this.setState({
       cardsTryunfo: filterCards,
-    }, this.findTrufoPresence);
-  }
-
-  // solução encontrada no git do Tomas Breuckmann: (https://github.com/tryber/sd-019-a-project-tryunfo/blob/tomas-breuckmann-project-tryunfo/src/App.js)
-  // mas requisito 9 continua reprovado.
-  findTrufoPresence = () => {
-    const { cardsTryunfo } = this.state;
-    this.setState({ hasTrunfo: cardsTryunfo.some((card) => card.hasTrunfo === true) });
+      hasTrunfo: cardsTryunfo.some((card) => card.hasTrunfo === true),
+    });
   }
 
   onSaveButtonClick = (event) => {
@@ -61,11 +58,9 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     } = this.state;
-
     if (cardTrunfo) {
       this.setState({ hasTrunfo: true });
     }
-
     const myUUID = uuidv4();
     const card = {
       myUUID,
@@ -78,11 +73,9 @@ class App extends React.Component {
       cardRare,
       cardTrunfo,
     };
-
     this.setState((prevState) => ({
       cardsTryunfo: [...prevState.cardsTryunfo, card],
     }));
-
     this.setState({
       cardName: '',
       cardDescription: '',
@@ -101,7 +94,6 @@ class App extends React.Component {
     const MAX_VALUE_ATTR = 90;
     const MIN_VALUE_ATTR = 0;
     const MAX_VALUE_POINTS = 210;
-
     const {
       cardName,
       cardDescription,
@@ -111,28 +103,21 @@ class App extends React.Component {
       cardImage,
       cardRare,
     } = this.state;
-
     const valueAttr1 = parseInt(cardAttr1, 10);
     const valueAttr2 = parseInt(cardAttr2, 10);
     const valueAttr3 = parseInt(cardAttr3, 10);
-
     const minLen = cardName.length >= MIN_LEN_VALUE
       && cardDescription.length >= MIN_LEN_VALUE;
-
     const valueAttr = valueAttr1 <= MAX_VALUE_ATTR
       && valueAttr1 >= MIN_VALUE_ATTR
       && valueAttr2 <= MAX_VALUE_ATTR
       && valueAttr2 >= MIN_VALUE_ATTR
       && valueAttr3 <= MAX_VALUE_ATTR
       && valueAttr3 >= MIN_VALUE_ATTR;
-
     const sumTotalPoints = (valueAttr1 + valueAttr2 + valueAttr3) <= MAX_VALUE_POINTS;
-
     const fields = [cardName, cardDescription, cardImage, cardRare];
     const emptyFields = fields.every((field) => field !== '');
-
     const isValid = minLen && valueAttr && emptyFields && sumTotalPoints;
-
     if (isValid) {
       this.setState({ saveButton: false });
     } else {
@@ -140,29 +125,20 @@ class App extends React.Component {
     }
   }
 
-  // Solução encontrada no git do Ramond Falcão:(https://github.com/tryber/sd-019-a-project-tryunfo/blob/ramond-falcao-tryunfo/src/App.js)
-  // que havia encontrado essa solução no git do Gabriel Melo:(https://github.com/tryber/sd-019-a-project-tryunfo/blob/dev/gabriel-melo/src/App.js)
-  // mas infelizmente ainda foi reprovado.
-  renderCardsTryunfo = () => {
-    const { cardsTryunfo } = this.state;
-    return cardsTryunfo.map((card) => (
-      <div key={ card.myUUID }>
-        <Card
-          cardName={ card.cardName }
-          cardDescription={ card.cardDescription }
-          cardAttr1={ card.cardAttr1 }
-          cardAttr2={ card.cardAttr2 }
-          cardAttr3={ card.cardAttr3 }
-          cardImage={ card.cardImage }
-          cardRare={ card.cardRare }
-          cardTrunfo={ card.cardTrunfo }
-          myUUID={ card.myUUID }
-          notPreview
+  cardList = () => {
+    const { cardsTryunfo, searchCard } = this.state;
+    return (
+      <div>
+        <div>
+          <h1>Cards</h1>
+        </div>
+        <Cards
+          cardsTryunfo={ cardsTryunfo }
           onRemoveCard={ this.onRemoveCard }
+          searchCard={ searchCard }
         />
-      </div>
-    ));
-  }
+      </div>);
+  };
 
   render() {
     const {
@@ -178,7 +154,6 @@ class App extends React.Component {
       saveButton,
       cardsTryunfo,
     } = this.state;
-
     return (
       <div>
         <h1>Tryunfo</h1>
@@ -212,10 +187,7 @@ class App extends React.Component {
           />
         </div>
         <div>
-          <Cards
-            renderCardsTryunfo={ this.renderCardsTryunfo }
-            cardsTryunfo={ cardsTryunfo }
-          />
+          { (cardsTryunfo.length) ? this.cardList() : '' }
         </div>
       </div>
     );
