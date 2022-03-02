@@ -48,25 +48,24 @@ class App extends React.Component {
   }
 
   clearSearchCard = () => {
-    this.setState({ searchCard: '', showCard: '', rareFilter: 'todas', showRare: '' });
-    this.setState({ trunfoFilter: false, searchFields: false });
-  }
-
-  handleSearch = ({ target }) => {
-    const { name } = target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    this.setState({ [name]: value });
-    if (name === 'trunfoFilter' && value) {
-      this.setState({ searchFields: true }, () => this.cardList());
-    } else if (name === 'trunfoFilter' && !value) {
-      this.setState({ searchFields: false }, () => this.cardList());
-    }
+    this.setState({
+      searchCard: '',
+      showCard: '',
+      rareFilter: 'todas',
+      showRare: '',
+      trunfoFilter: false,
+      searchFields: false });
   }
 
   onInputChange = ({ target }) => {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value }, () => this.validate());
+    if (name === 'trunfoFilter' && value) {
+      this.setState({ searchFields: true }, () => this.cardList());
+    } else if (name === 'trunfoFilter' && !value) {
+      this.setState({ searchFields: false }, () => this.cardList());
+    }
   }
 
   onRemoveCard = (myUUID) => {
@@ -150,8 +149,9 @@ class App extends React.Component {
 
   cardList = () => {
     const { cardsTryunfo, showCard, showRare, trunfoFilter, hasTrunfo } = this.state;
-    if (!hasTrunfo) {
-      this.setState({ hasTrunfo: cardsTryunfo.some((card) => card.cardTrunfo) });
+    const trunfo = cardsTryunfo.some((card) => card.cardTrunfo);
+    if (!hasTrunfo && trunfo) {
+      this.setState({ hasTrunfo: trunfo });
     }
     return (
       <Cards
@@ -212,7 +212,7 @@ class App extends React.Component {
         <div>
           <Filtercards
             searchCard={ searchCard }
-            handleSearch={ this.handleSearch }
+            onInputChange={ this.onInputChange }
             buttonSearchCard={ this.buttonSearchCard }
             clearSearchCard={ this.clearSearchCard }
             rareFilter={ rareFilter }

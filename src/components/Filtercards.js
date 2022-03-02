@@ -5,7 +5,7 @@ class Filtercards extends Component {
   render() {
     const {
       searchCard,
-      handleSearch,
+      onInputChange,
       buttonSearchCard,
       clearSearchCard,
       rareFilter,
@@ -20,7 +20,7 @@ class Filtercards extends Component {
           type="text"
           disabled={ searchFields }
           value={ searchCard }
-          onChange={ handleSearch }
+          onChange={ onInputChange }
           name="searchCard"
           placeholder="Nome da carta"
           data-testid="name-filter"
@@ -33,7 +33,7 @@ class Filtercards extends Component {
               name="rareFilter"
               value={ rareFilter }
               disabled={ searchFields }
-              onChange={ handleSearch }
+              onChange={ onInputChange }
             >
               <option value="todas">todas</option>
               <option value="normal">normal</option>
@@ -49,7 +49,7 @@ class Filtercards extends Component {
             name="trunfoFilter"
             id="trunfoFilter"
             checked={ trunfoFilter }
-            onChange={ handleSearch }
+            onChange={ onInputChange }
           />
           Super Tryunfo Card
         </label>
@@ -81,7 +81,7 @@ class Filtercards extends Component {
 Filtercards.propTypes = {
   searchCard: PropTypes.string.isRequired,
   rareFilter: PropTypes.string.isRequired,
-  handleSearch: PropTypes.func.isRequired,
+  onInputChange: PropTypes.func.isRequired,
   buttonSearchCard: PropTypes.func.isRequired,
   clearSearchCard: PropTypes.func.isRequired,
   saveAllCards: PropTypes.func.isRequired,
