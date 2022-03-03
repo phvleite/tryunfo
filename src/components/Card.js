@@ -28,7 +28,7 @@ class Card extends Component {
         <span>
           <img src={ cardImage } alt={ cardName } data-testid="image-card" />
         </span>
-        <span data-testid="description-card">
+        <span data-testid="description-card" className="description-card">
           { cardDescription }
         </span>
         <span data-testid="attr1-card">
