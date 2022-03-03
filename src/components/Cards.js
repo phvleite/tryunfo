@@ -12,7 +12,7 @@ class Cards extends Component {
     } = this.props;
 
     const isSuperTrunfo = (
-      <span data-testid="trunfo-card">
+      <span data-testid="trunfo-card" className="trunfo-all-cards">
         Super Trunfo
       </span>
     );
@@ -34,47 +34,43 @@ class Cards extends Component {
 
     const cardsTryunfoList = cardsTryunfoFiltered
       .map((card) => (
-        <div key={ card.myUUID }>
-          <br />
-          <span data-testid="name-card">
-            Nome:&nbsp;
-            { card.cardName }
-          </span>
-          <br />
-          <span>
-            <img src={ card.cardImage } alt={ card.cardName } data-testid="image-card" />
-          </span>
-          <br />
-          <span data-testid="description-card">
-            Descrição:&nbsp;
-            { card.cardDescription }
-          </span>
-          <br />
-          <span data-testid="attr1-card">
-            Atributo 01:&nbsp;
-            { card.cardAttr1 }
-          </span>
-          <br />
-          <span data-testid="attr2-card">
-            Atributo 02:&nbsp;
-            { card.cardAttr2 }
-          </span>
-          <br />
-          <span data-testid="attr3-card">
-            Atributo 03:&nbsp;
-            { card.cardAttr3 }
-          </span>
-          <br />
-          <span data-testid="rare-card">
-            Raridade:&nbsp;
-            { card.cardRare }
-          </span>
-          <br />
-          { card.cardTrunfo ? isSuperTrunfo : '' }
-          <br />
+        <div key={ card.myUUID } className="all-cards">
+          <div className="box-card">
+            <span data-testid="name-card" className="name-cards">
+              { card.cardName }
+            </span>
+            <span>
+              <img
+                src={ card.cardImage }
+                alt={ card.cardName }
+                data-testid="image-card"
+              />
+            </span>
+            <span data-testid="description-card" className="description-cards">
+              { card.cardDescription }
+            </span>
+            <span data-testid="attr1-card">
+              Atributo 01:&nbsp;
+              { card.cardAttr1 }
+            </span>
+            <span data-testid="attr2-card">
+              Atributo 02:&nbsp;
+              { card.cardAttr2 }
+            </span>
+            <span data-testid="attr3-card">
+              Atributo 03:&nbsp;
+              { card.cardAttr3 }
+            </span>
+            <span data-testid="rare-card">
+              Raridade:&nbsp;
+              { card.cardRare }
+            </span>
+            { card.cardTrunfo ? isSuperTrunfo : '' }
+          </div>
           <div>
             <button
               type="submit"
+              className="bt-excluir-card"
               data-testid="delete-button"
               value={ card.cardName }
               id={ card.myUUID }
@@ -83,7 +79,6 @@ class Cards extends Component {
               Exlcuir
             </button>
           </div>
-          <br />
         </div>
       ));
 

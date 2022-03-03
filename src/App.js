@@ -225,7 +225,9 @@ class App extends React.Component {
             searchFields={ searchFields }
             saveAllCards={ this.saveAllCards }
           />
-          { (cardsTryunfo.length) ? this.cardList() : '' }
+          <div className="box-all-cards">
+            { (cardsTryunfo.length) ? this.cardList() : '' }
+          </div>
         </div>
 
       </div>

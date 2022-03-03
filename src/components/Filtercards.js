@@ -14,7 +14,7 @@ class Filtercards extends Component {
       saveAllCards,
     } = this.props;
     return (
-      <div>
+      <div className="box-search">
         <h1>Todas as Cartas</h1>
         <input
           type="text"
