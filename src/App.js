@@ -34,6 +34,7 @@ class App extends React.Component {
       rareFilter: '',
       trunfoFilter: false,
       searchFields: false,
+      classAtiva: 'desativa',
     };
   }
 
@@ -100,6 +101,7 @@ class App extends React.Component {
       cardRare: 'normal',
       cardTrunfo: false,
       saveButton: true,
+      classAtiva: 'desativa',
     });
   }
 
@@ -132,9 +134,9 @@ class App extends React.Component {
     const isValid = minLen && valueAttr && emptyFields && sumTotalPoints;
 
     if (isValid) {
-      this.setState({ saveButton: false });
+      this.setState({ saveButton: false, classAtiva: 'ativa' });
     } else {
-      this.setState({ saveButton: true });
+      this.setState({ saveButton: true, classAtiva: 'desativa' });
     }
   }
 
@@ -159,15 +161,12 @@ class App extends React.Component {
   saveAllCards = () => {
     const { cardsTryunfo } = this.state;
     window.localStorage.setItem('cardsTryunfo', JSON.stringify(cardsTryunfo));
-    customAlert('Cartas salvas!');
-    const alert = myCustomLib.customAlert;
-    alert();
   }
 
   render() {
     const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3,
       cardImage, cardRare, cardTrunfo, hasTrunfo, saveButton, cardsTryunfo,
-      searchCard, rareFilter, trunfoFilter, searchFields,
+      searchCard, rareFilter, trunfoFilter, searchFields, classAtiva,
     } = this.state;
     return (
       <div>
@@ -189,6 +188,7 @@ class App extends React.Component {
               onInputChange={ this.onInputChange }
               isSaveButtonDisabled={ saveButton }
               onSaveButtonClick={ this.onSaveButtonClick }
+              classAtiva={ classAtiva }
             />
           </div>
           <div className="box-card-preview">

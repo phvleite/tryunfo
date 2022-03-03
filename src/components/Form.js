@@ -16,6 +16,7 @@ class Form extends Component {
       onInputChange,
       isSaveButtonDisabled,
       onSaveButtonClick,
+      classAtiva,
     } = this.props;
 
     const isHasTrunfo = (
@@ -151,7 +152,7 @@ class Form extends Component {
           <input
             type="submit"
             data-testid="save-button"
-            className="save-button"
+            className={ classAtiva }
             name="save-button"
             id="save-button"
             disabled={ isSaveButtonDisabled }
@@ -172,7 +173,7 @@ Form.propTypes = {
   cardAttr2: PropTypes.string.isRequired,
   cardAttr3: PropTypes.string.isRequired,
   cardImage: PropTypes.string.isRequired,
-  cardRare: PropTypes.string.isRequired,
+  classAtiva: PropTypes.string.isRequired,
   cardTrunfo: PropTypes.bool.isRequired,
   hasTrunfo: PropTypes.bool.isRequired,
   isSaveButtonDisabled: PropTypes.bool.isRequired,
