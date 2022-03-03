@@ -4,6 +4,7 @@ import Form from './components/Form';
 import Card from './components/Card';
 import Cards from './components/Cards';
 import Filtercards from './components/Filtercards';
+import './index.css';
 
 const getSavedCards = () => {
   const getCards = window.localStorage.getItem('cardsTryunfo');
@@ -180,36 +181,40 @@ class App extends React.Component {
     } = this.state;
     return (
       <div>
-        <h1>Tryunfo</h1>
-        <div className="box-form">
-          <Form
-            cardName={ cardName }
-            cardDescription={ cardDescription }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-            hasTrunfo={ hasTrunfo }
-            onInputChange={ this.onInputChange }
-            isSaveButtonDisabled={ saveButton }
-            onSaveButtonClick={ this.onSaveButtonClick }
-          />
+        <header>
+          <h1>Super Tryunfo Cards</h1>
+        </header>
+        <div className="create-and-register">
+          <div className="box-form">
+            <Form
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+              hasTrunfo={ hasTrunfo }
+              onInputChange={ this.onInputChange }
+              isSaveButtonDisabled={ saveButton }
+              onSaveButtonClick={ this.onSaveButtonClick }
+            />
+          </div>
+          <div className="box-card-preview">
+            <Card
+              cardName={ cardName }
+              cardDescription={ cardDescription }
+              cardAttr1={ cardAttr1 }
+              cardAttr2={ cardAttr2 }
+              cardAttr3={ cardAttr3 }
+              cardImage={ cardImage }
+              cardRare={ cardRare }
+              cardTrunfo={ cardTrunfo }
+            />
+          </div>
         </div>
-        <div className="box-card-preview">
-          <Card
-            cardName={ cardName }
-            cardDescription={ cardDescription }
-            cardAttr1={ cardAttr1 }
-            cardAttr2={ cardAttr2 }
-            cardAttr3={ cardAttr3 }
-            cardImage={ cardImage }
-            cardRare={ cardRare }
-            cardTrunfo={ cardTrunfo }
-          />
-        </div>
-        <div>
+        <div className="list-cards">
           <Filtercards
             searchCard={ searchCard }
             onInputChange={ this.onInputChange }
@@ -222,6 +227,7 @@ class App extends React.Component {
           />
           { (cardsTryunfo.length) ? this.cardList() : '' }
         </div>
+
       </div>
     );
   }

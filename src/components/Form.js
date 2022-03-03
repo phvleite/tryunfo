@@ -25,17 +25,20 @@ class Form extends Component {
     );
 
     const notHasTrunfo = (
-      <label htmlFor="cardTrunfo">
+      <div>
         <input
           type="checkbox"
           data-testid="trunfo-input"
           name="cardTrunfo"
           id="cardTrunfo"
+          className="trunfo-input"
           checked={ cardTrunfo }
           onChange={ onInputChange }
         />
-        Super Trybe Trunfo
-      </label>
+        <span className="lb-trunfo">
+          Super Trybe Trunfo
+        </span>
+      </div>
     );
 
     const MAX_POINT = 210;
@@ -47,97 +50,108 @@ class Form extends Component {
         <h1>
           Adicionar nova carta
         </h1>
-        <form className="newCard" onSubmit={ onSaveButtonClick }>
-          <label htmlFor="cardName">
+        <form className="new-card" onSubmit={ onSaveButtonClick }>
+          <span className="lb-name">
             Nome
-            <input
-              type="text"
-              data-testid="name-input"
-              name="cardName"
-              id="cardName"
-              value={ cardName }
-              onChange={ onInputChange }
-            />
-          </label>
-          <label htmlFor="cardDescription">
+          </span>
+          <input
+            className="input-form"
+            type="text"
+            data-testid="name-input"
+            name="cardName"
+            id="cardName"
+            value={ cardName }
+            onChange={ onInputChange }
+          />
+          <span className="lb-description">
             Descrição
+          </span>
+          <input
+            type="textarea"
+            rows="50"
+            className="input-form"
+            data-testid="description-input"
+            name="cardDescription"
+            id="cardDescription"
+            value={ cardDescription }
+            onChange={ onInputChange }
+          />
+          <div className="box-attr-cards">
+            <span className="card-attr">
+              Attr01
+            </span>
             <input
-              type="textarea"
-              data-testid="description-input"
-              name="cardDescription"
-              id="cardDescription"
-              value={ cardDescription }
+              type="number"
+              className="input-attr"
+              data-testid="attr1-input"
+              name="cardAttr1"
+              id="cardAttr1"
+              value={ cardAttr1.toString() }
               onChange={ onInputChange }
             />
-          </label>
-          <div className="box-attr-cards">
-            <label htmlFor="cardAttr1">
-              Attr01
-              <input
-                type="number"
-                data-testid="attr1-input"
-                name="cardAttr1"
-                id="cardAttr1"
-                value={ cardAttr1.toString() }
-                onChange={ onInputChange }
-              />
-            </label>
-            <label htmlFor="cardAttr2">
+            <span className="card-attr">
               Attr02
-              <input
-                type="number"
-                data-testid="attr2-input"
-                name="cardAttr2"
-                id="cardAttr2"
-                value={ cardAttr2.toString() }
-                onChange={ onInputChange }
-              />
-            </label>
-            <label htmlFor="cardAttr3">
+            </span>
+            <input
+              type="number"
+              className="input-attr"
+              data-testid="attr2-input"
+              name="cardAttr2"
+              id="cardAttr2"
+              value={ cardAttr2.toString() }
+              onChange={ onInputChange }
+            />
+            <span className="card-attr">
               Attr03
-              <input
-                type="number"
-                data-testid="attr3-input"
-                name="cardAttr3"
-                id="cardAttr3"
-                value={ cardAttr3.toString() }
-                onChange={ onInputChange }
-              />
-            </label>
-            <div>
+            </span>
+            <input
+              type="number"
+              data-testid="attr3-input"
+              className="input-attr"
+              name="cardAttr3"
+              id="cardAttr3"
+              value={ cardAttr3.toString() }
+              onChange={ onInputChange }
+            />
+          </div>
+          <div>
+            <span className="points">
               Pontos Restantes =&nbsp;
               { remainingPoints }
-            </div>
+            </span>
           </div>
-          <label htmlFor="cardImage">
+          <span className="lb-image">
             Imagem
-            <input
-              type="text"
-              data-testid="image-input"
-              name="cardImage"
-              id="CardImage"
-              value={ cardImage }
-              onChange={ onInputChange }
-            />
-          </label>
-          <label htmlFor="cardRare">
+          </span>
+          <input
+            type="text"
+            className="input-form"
+            data-testid="image-input"
+            name="cardImage"
+            id="CardImage"
+            value={ cardImage }
+            onChange={ onInputChange }
+          />
+          <span className="lb-rare">
             Raridade
-            <select
-              data-testid="rare-input"
-              id="cardRare"
-              name="cardRare"
-              value={ cardRare }
-              onChange={ onInputChange }
-            >
-              <option value="normal">normal</option>
-              <option value="raro">raro</option>
-              <option value="muito raro">muito raro</option>
-            </select>
-          </label>
+          </span>
+          <select
+            data-testid="rare-input"
+            id="cardRare"
+            name="cardRare"
+            className="select-rare"
+            value={ cardRare }
+            onChange={ onInputChange }
+          >
+            <option value="normal">normal</option>
+            <option value="raro">raro</option>
+            <option value="muito raro">muito raro</option>
+          </select>
           { hasTrunfo ? isHasTrunfo : notHasTrunfo }
           <input
             type="submit"
             data-testid="save-button"
+            className="save-button"
             name="save-button"
             id="save-button"
             disabled={ isSaveButtonDisabled }
