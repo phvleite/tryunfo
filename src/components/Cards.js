@@ -6,8 +6,8 @@ class Cards extends Component {
     const {
       cardsTryunfo,
       onRemoveCard,
-      showCard,
-      showRare,
+      searchCard,
+      rareFilter,
       trunfoFilter,
     } = this.props;
 
@@ -19,13 +19,13 @@ class Cards extends Component {
 
     let cardsTryunfoFiltered = [];
     if (!trunfoFilter) {
-      if (showRare === '') {
+      if (rareFilter === '') {
         cardsTryunfoFiltered = cardsTryunfo
-          .filter((card) => card.cardName.includes(showCard));
+          .filter((card) => card.cardName.includes(searchCard));
       } else {
         cardsTryunfoFiltered = cardsTryunfo
-          .filter((card) => card.cardRare === showRare)
-          .filter((card) => card.cardName.includes(showCard));
+          .filter((card) => card.cardRare === rareFilter)
+          .filter((card) => card.cardName.includes(searchCard));
       }
     } else {
       cardsTryunfoFiltered = cardsTryunfo
@@ -93,8 +93,8 @@ class Cards extends Component {
 Cards.propTypes = {
   cardsTryunfo: PropTypes.arrayOf(PropTypes.object).isRequired,
   onRemoveCard: PropTypes.func.isRequired,
-  showCard: PropTypes.string.isRequired,
-  showRare: PropTypes.string.isRequired,
+  searchCard: PropTypes.string.isRequired,
+  rareFilter: PropTypes.string.isRequired,
   trunfoFilter: PropTypes.bool.isRequired,
 };
 

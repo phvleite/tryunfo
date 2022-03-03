@@ -6,7 +6,6 @@ class Filtercards extends Component {
     const {
       searchCard,
       onInputChange,
-      buttonSearchCard,
       clearSearchCard,
       rareFilter,
       searchFields,
@@ -53,14 +52,6 @@ class Filtercards extends Component {
           />
           Super Tryunfo Card
         </label>
-        <br />
-        <button
-          type="submit"
-          disabled={ searchFields }
-          onClick={ () => buttonSearchCard(searchCard, rareFilter) }
-        >
-          Buscar
-        </button>
         <button
           type="submit"
           onClick={ () => clearSearchCard() }
@@ -82,7 +73,6 @@ Filtercards.propTypes = {
   searchCard: PropTypes.string.isRequired,
   rareFilter: PropTypes.string.isRequired,
   onInputChange: PropTypes.func.isRequired,
-  buttonSearchCard: PropTypes.func.isRequired,
   clearSearchCard: PropTypes.func.isRequired,
   saveAllCards: PropTypes.func.isRequired,
   searchFields: PropTypes.bool.isRequired,

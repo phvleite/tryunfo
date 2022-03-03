@@ -31,29 +31,16 @@ class App extends React.Component {
       saveButton: true,
       cardsTryunfo: cardSuperTryunfo,
       searchCard: '',
-      showCard: '',
-      rareFilter: 'todas',
-      showRare: '',
+      rareFilter: '',
       trunfoFilter: false,
       searchFields: false,
     };
   }
 
-  buttonSearchCard = (searchCard, rareFilter) => {
-    if (rareFilter === 'todas') {
-      this.setState({ showCard: searchCard }, () => this.cardList());
-    } else {
-      this.setState({ showCard: searchCard, showRare: rareFilter,
-      }, () => this.cardList());
-    }
-  }
-
   clearSearchCard = () => {
     this.setState({
       searchCard: '',
-      showCard: '',
-      rareFilter: 'todas',
-      showRare: '',
+      rareFilter: '',
       trunfoFilter: false,
       searchFields: false });
   }
@@ -62,6 +49,9 @@ class App extends React.Component {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value }, () => this.validate());
+    if (name === 'rareFilter' && value === 'todas') {
+      this.setState({ [name]: '' });
+    }
     if (name === 'trunfoFilter' && value) {
       this.setState({ searchFields: true }, () => this.cardList());
     } else if (name === 'trunfoFilter' && !value) {
@@ -149,7 +139,7 @@ class App extends React.Component {
   }
 
   cardList = () => {
-    const { cardsTryunfo, showCard, showRare, trunfoFilter, hasTrunfo } = this.state;
+    const { cardsTryunfo, trunfoFilter, hasTrunfo, searchCard, rareFilter } = this.state;
     const trunfo = cardsTryunfo.some((card) => card.cardTrunfo);
     if (!hasTrunfo && trunfo) {
       this.setState({ hasTrunfo: trunfo });
@@ -158,8 +148,8 @@ class App extends React.Component {
       <Cards
         cardsTryunfo={ cardsTryunfo }
         onRemoveCard={ this.onRemoveCard }
-        showCard={ showCard }
-        showRare={ showRare }
+        searchCard={ searchCard }
+        rareFilter={ rareFilter }
         trunfoFilter={ trunfoFilter }
         hasTrunfo={ hasTrunfo }
       />
