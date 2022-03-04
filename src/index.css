@@ -231,28 +231,36 @@ span.description-card {
   letter-spacing: -0.15rem;
 }
 
-.box-all-cards {
-  border: solid 2px olivedrab;
+.content-all-cards {
+  /* border: solid 4px yellowgreen;
+  background: gray; */
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-around;
-  padding: 20px;
-  width: 800px;
-  margin: 10px;
+  justify-content: center;
+  margin: 20px;
+  width: 400px;
 }
 
 .all-cards {
   background: #154360;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   border-radius: 5px;
   color: white;
   margin-bottom: 20px;
   padding: 10px;
   width: 250px;
-  height: 370px;
+  height: 400px;
+}
+
+.all-cards section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5px;
 }
 
 .box-card {
@@ -294,4 +302,73 @@ span.trunfo-all-cards {
   background: #B7950B;
   box-shadow: 0px 0px 15px rgba(183, 149, 11, 0.85),
   0px 0px 15px rgba(183, 149, 11, 0.85);
+}
+
+/* box com as opções para filtro e busca */
+.box-search {
+  background: #d0d3d4;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border-radius: 10px;
+  margin: 20px;
+  width: 300px;
+  height: 450px;
+  transition: 0.5s;
+}
+
+.box-elements-search {
+  border: solid 1px navy;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: left;
+  width: 250px;
+  font-weight: 600;
+  margin: auto;
+}
+
+select.search-name,
+input.search-name {
+  background: #d0d3d4;
+  border: solid 1px whitesmoke;
+  border-radius: 5px;
+  padding: 5px 0;
+  font-size: 1rem;
+  transition: 0.75s;
+  width: 250px;
+  margin: 5px 0 15px 0;
+}
+
+.box-trunfo-filter {
+  display: flex;
+  padding: 10px 0;
+  justify-content: left;
+}
+
+select.search-name:hover,
+input.search-name:hover {
+  box-shadow: 0px 0px 15px rgba(21, 67, 96, 0.85),
+  0px 0px 15px rgba(21, 67, 96, 0.85);
+}
+
+select.search-name:focus,
+input.search-name:focus {
+  outline: 0;
+}
+
+input.search-name:focus {
+  background: #FDFEFE;
+} 
+
+.box-search button {
+  background: #d0d3d4;
+  border: solid 1px whitesmoke;
+  border-radius: 5px;
+  margin: 5px 0;
+  padding: 10px;
+  font-size: 1rem;
+  transition: 0.75s;
 }

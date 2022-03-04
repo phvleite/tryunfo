@@ -31,7 +31,7 @@ class App extends React.Component {
       saveButton: true,
       cardsTryunfo: cardSuperTryunfo,
       searchCard: '',
-      rareFilter: '',
+      rareFilter: 'todas',
       trunfoFilter: false,
       searchFields: false,
       classAtiva: 'desativa',
@@ -41,7 +41,7 @@ class App extends React.Component {
   clearSearchCard = () => {
     this.setState({
       searchCard: '',
-      rareFilter: '',
+      rareFilter: 'todas',
       trunfoFilter: false,
       searchFields: false });
   }
@@ -50,9 +50,6 @@ class App extends React.Component {
     const { name } = target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     this.setState({ [name]: value }, () => this.validate());
-    if (name === 'rareFilter' && value === 'todas') {
-      this.setState({ [name]: '' });
-    }
     if (name === 'trunfoFilter' && value) {
       this.setState({ searchFields: true }, () => this.cardList());
     } else if (name === 'trunfoFilter' && !value) {
@@ -215,9 +212,9 @@ class App extends React.Component {
             searchFields={ searchFields }
             saveAllCards={ this.saveAllCards }
           />
-          <div className="box-all-cards">
+          <ul className="content-all-cards">
             { (cardsTryunfo.length) ? this.cardList() : '' }
-          </div>
+          </ul>
         </div>
 
       </div>
